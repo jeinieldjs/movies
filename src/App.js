@@ -12,10 +12,9 @@ class App extends Component {
     };
   }
 
-  handleSubmit = () => {
-    fetch(
-      `https://api.themoviedb.org/3/search/movie?api_key=${this.state.apiKey}&query=${this.state.searchTerm}`
-    )
+  handleSubmit = (e) => {
+    e.preventDefault();
+    fetch(`https://api.themoviedb.org/3/search/movie?query=${this.state.searchTerm}&api_key=${this.state.apiKey}`)
       .then((data) => data.json())
       .then((data) => {
         console.log(data);
@@ -23,11 +22,16 @@ class App extends Component {
       });
   };
 
+  handleChange = (e) => {
+    this.setState({ searchTerm: e.target.value})
+
+  }
+
   render() {
     return (
       <div className="App">
         <Nav />
-        <SearchBar handleSubmit={this.handleSubmit} />
+        <SearchBar handleSubmit={this.handleSubmit} handleChange={this.handleChange} />
       </div>
     );
   }
