@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import Nav from "./components/Nav";
 import SearchBar from "./components/SearchBar";
 import List from "./components/List";
+import PageBar from "./components/PageBar";
 
 class App extends Component {
   constructor() {
