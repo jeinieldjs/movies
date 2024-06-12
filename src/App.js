@@ -3,6 +3,7 @@ import Nav from "./components/Nav";
 import SearchBar from "./components/SearchBar";
 import List from "./components/List";
 import PageBar from "./components/PageBar";
+import MovieCard from "./components/MovieCard";
 
 class App extends Component {
   constructor() {
@@ -12,7 +13,8 @@ class App extends Component {
       searchTerm: "",
       apiKey: process.env.REACT_APP_API,
       totalResults: 0,
-      currentPage: 1
+      currentPage: 1,
+      currentMovie: null
     };
   }
 
@@ -39,13 +41,27 @@ class App extends Component {
     });
   }
 
+  viewInfo = (id) => {
+    const filteredMovie = this.state.movies.filter(movie => movie.id == id)
+    const newCurrentMovie = filteredMovie.length > 0 ? filteredMovie[0] : null
+    this.setState({ currentMovie: filteredMovie})
+  }
+
+  closeInfo = () => {
+    this.setState({currentMovie: null})
+  }
+
+
   render() {
     const totalPages = Math.ceil(this.state.totalResults / 20);
     return (
       <div className="App">
         <Nav />
-        <SearchBar handleSubmit={this.handleSubmit} handleChange={this.handleChange} />
-        <List movies={this.state.movies} />
+        { this.state.currentMovie == null ?
+        <div><SearchBar handleSubmit={this.handleSubmit} handleChange={this.handleChange} />
+        <List movies={this.state.movies} viewInfor ={this.viewInfo} /></div> :
+        <MovieCard closeInfo = {this.closeInfo} />
+        }
         {
           this.state.totalResults > 20 && 
           <PageBar pages={totalPages} nextPage={this.nextPage} currentPage={this.state.currentPage} />
