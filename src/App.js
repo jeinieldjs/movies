@@ -40,11 +40,15 @@ class App extends Component {
   }
 
   render() {
+    const totalPages = Math.floor(this.state.totalResult / 20)
     return (
       <div className="App">
         <Nav />
         <SearchBar handleSubmit={this.handleSubmit} handleChange={this.handleChange} />
         <List movies={this.state.movies} />
+        {
+          this.state.totalResult > 20 ? <PageBar pages={totalPages} nextPage={this.nexPage} currentPage={this.currentPage} /> : ''
+        }
       </div>
     );
   }
