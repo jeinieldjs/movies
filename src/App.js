@@ -59,7 +59,7 @@ class App extends Component {
         <Nav />
         { this.state.currentMovie == null ?
         <div><SearchBar handleSubmit={this.handleSubmit} handleChange={this.handleChange} />
-        <List movies={this.state.movies} viewInfor ={this.viewInfo} /></div> :
+        <List movies={this.state.movies} viewInfo ={this.viewInfo} /></div> :
         <MovieCard closeInfo = {this.closeInfo} />
         }
         {
