@@ -44,7 +44,7 @@ class App extends Component {
   viewInfo = (id) => {
     const filteredMovie = this.state.movies.filter(movie => movie.id == id)
     const newCurrentMovie = filteredMovie.length > 0 ? filteredMovie[0] : null
-    this.setState({ currentMovie: filteredMovie})
+    this.setState({ currentMovie: newCurrentMovie})
   }
 
   closeInfo = () => {
@@ -60,10 +60,10 @@ class App extends Component {
         { this.state.currentMovie == null ?
         <div><SearchBar handleSubmit={this.handleSubmit} handleChange={this.handleChange} />
         <List movies={this.state.movies} viewInfo ={this.viewInfo} /></div> :
-        <MovieCard closeInfo = {this.closeInfo} />
+        <MovieCard closeInfo = {this.closeInfo} currentMovie={this.state.currentMovie}/>
         }
         {
-          this.state.totalResults > 20 && 
+          this.state.totalResults > 20 && this.state.currentMovie == null &&
           <PageBar pages={totalPages} nextPage={this.nextPage} currentPage={this.state.currentPage} />
         }
       </div>
