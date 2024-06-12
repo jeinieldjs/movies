@@ -33,6 +33,7 @@ class App extends Component {
       <div className="App">
         <Nav />
         <SearchBar handleSubmit={this.handleSubmit} handleChange={this.handleChange} />
+        <List movies={this.state.movies} />
       </div>
     );
   }
