@@ -11,7 +11,7 @@ class App extends Component {
       movies: [],
       searchTerm: "",
       apiKey: process.env.REACT_APP_API,
-      totalResult: 0,
+      totalResults: 0,
       currentPage: 1
     };
   }
@@ -28,10 +28,9 @@ class App extends Component {
 
   handleChange = (e) => {
     this.setState({ searchTerm: e.target.value})
-
   }
 
-  nexPage = (pageNumber) => {
+  nextPage = (pageNumber) => {
     fetch(`https://api.themoviedb.org/3/search/movie?query=${this.state.searchTerm}&api_key=${this.state.apiKey}&page=${pageNumber}`)
     .then((data) => data.json())
     .then((data) => {
@@ -41,14 +40,15 @@ class App extends Component {
   }
 
   render() {
-    const totalPages = Math.floor(this.state.totalResult / 20)
+    const totalPages = Math.ceil(this.state.totalResults / 20);
     return (
       <div className="App">
         <Nav />
         <SearchBar handleSubmit={this.handleSubmit} handleChange={this.handleChange} />
         <List movies={this.state.movies} />
         {
-          this.state.totalResult > 20 ? <PageBar pages={totalPages} nextPage={this.nexPage} currentPage={this.currentPage} /> : ''
+          this.state.totalResults > 20 && 
+          <PageBar pages={totalPages} nextPage={this.nextPage} currentPage={this.state.currentPage} />
         }
       </div>
     );
