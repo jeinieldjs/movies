@@ -9,7 +9,7 @@ const List = (props) => {
                     {
                         props.movies.map((movies, index) => {
                             return (
-                                <Movie key={index} image={movies.poster_path} />
+                                <Movie key={index} movieId={movies.id} viewInfo={props.viewInfo} image={movies.poster_path} />
                             )
                         })
                     }
